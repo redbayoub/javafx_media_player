@@ -1,0 +1,30 @@
+
+/* 
+    Created on : Sep 19, 2018, 11:40:08 AM
+    Author     : redayoub
+*/
+
+.chart-plot-background {
+    -fx-background-color: black;
+}
+
+
+.chart {
+    -fx-padding: 10px;
+}
+.chart-content {
+    -fx-padding: 30px;
+}
+/*
+.axis {
+    
+    -fx-font-size: 1.4em;    
+    -fx-tick-label-fill: black;
+    -fx-font-family: Tahoma;
+    -fx-tick-length: 20;
+    -fx-minor-tick-length: 10;
+}
+ 
+.axis-label {
+   -fx-text-fill:black; 
+}*/

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mediaplayer.ui.mainView.FXMLDocumentController">
+   <children>
+      <AnchorPane fx:id="rootPane">
+         <children>
+            <MenuBar fx:id="menuBar" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="547.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Media">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#openFile" text=" Open File">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit">
+                           <accelerator>
+                              <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Playback">
+                  <items>
+                    <MenuItem fx:id="playMenuItem" mnemonicParsing="false" onAction="#playMI" text="Play" />
+                        <MenuItem fx:id="stopMenuItem" mnemonicParsing="false" onAction="#stopMI" text="Stop" />
+                        <MenuItem fx:id="pervMenuItem" mnemonicParsing="false" onAction="#goToPerv" text="Previous" />
+                        <MenuItem fx:id="nextMenuItem" mnemonicParsing="false" onAction="#goToNext" text="Next" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Audio">
+                  <items>
+                    <MenuItem fx:id="increaseVolMenuItem" mnemonicParsing="false" onAction="#increaseVol" text="Increase Volume" />
+                        <MenuItem fx:id="decreaseVolMenuItem" mnemonicParsing="false" onAction="#decreaseVol" text="Decrease Volume" />
+                        <MenuItem fx:id="muteUnmuteMI" mnemonicParsing="false" onAction="#switchMuteMI" text="Mute">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="M" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Video">
+                     <items>
+                        <MenuItem fx:id="fullscreenMenuItem" mnemonicParsing="false" onAction="#switchFullscreen" text="Fullscreen">
+                           <graphic>
+                              <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="AlwaysOnTopMenuItem" mnemonicParsing="false" onAction="#setOnTop" text="Always on Top">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHECK" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem fx:id="snapshotMI" mnemonicParsing="false" onAction="#takeSnapshot" text="Take Snapshot">
+                           <graphic>
+                              <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Options">
+                     <items>
+                        <MenuItem disable="true" mnemonicParsing="false" onAction="#showPreferences" text="Preferences(NOT USED)" visible="false">
+                           <graphic>
+                              <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="showIconOnSysTrayMenuItem" mnemonicParsing="false" onAction="#showIconOnSysTray" text="Show icon in system tray">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHECK" />
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Help" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About" />
+                     </items>
+                  </Menu>
+              </menus>
+               <padding>
+                  <Insets left="0.1" />
+               </padding>
+            </MenuBar>
+            <StackPane fx:id="viewerPane" layoutY="29.0" minHeight="0.0" minWidth="0.0" onDragDropped="#fileDropped" onDragOver="#fileDragged" prefHeight="371.0" prefWidth="547.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="29.0">
+               <children>
+                  <LineChart fx:id="chart" alternativeColumnFillVisible="true" animated="false" createSymbols="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="536.0" style="-fx-background-color: black;" stylesheets="@chartStyling.css" verticalGridLinesVisible="false" StackPane.alignment="CENTER">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis minorTickVisible="false" side="LEFT" tickLabelsVisible="false" tickMarkVisible="false" />
+                    </yAxis>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </LineChart>
+               </children>
+            </StackPane>
+            <AnchorPane fx:id="uiControlBtnPane" style="-fx-background-color: #D6D6D6;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <FontAwesomeIconView fx:id="playOrPauseBtn" fill="#0e9654" glyphName="PLAY" layoutX="10.0" layoutY="30.714284896850586" onMouseClicked="#playOrPause" size="30" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="10.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fill="#0e9654" glyphName="STOP" layoutX="44.0" layoutY="30.0" onMouseClicked="#stop" size="30" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="44.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fx:id="seekBackBtn" fill="#0e9654" glyphName="BACKWARD" layoutX="76.0" layoutY="29.0" size="30" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="76.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+                  <FontAwesomeIconView fx:id="seekForeBtn" fill="#0e9654" glyphName="FORWARD" layoutX="118.0" layoutY="30.714284896850586" size="30" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="118.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+                  <Slider fx:id="videoSeeker" layoutX="148.0" layoutY="14.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" />
+                  <Text fx:id="currentDur" layoutX="444.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="2.0" />
+                  <Text fx:id="endDur" layoutX="519.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" AnchorPane.bottomAnchor="39.0" AnchorPane.rightAnchor="2.0" />
+                  <FontAwesomeIconView fx:id="volumeBtn" fill="#0e9654" glyphName="VOLUME_OFF" layoutX="481.0" layoutY="25.0" onMouseClicked="#muteOrUnmute" size="20" text="" translateX="5.0" wrappingWidth="21.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="98.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+                  <Slider fx:id="volumeControl" blockIncrement="0.1" max="1.0" prefHeight="16.0" prefWidth="95.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="3.0" />
+                  <FontAwesomeIconView fill="#0e9654" glyphName="LIST" layoutX="157.0" layoutY="64.0" onMouseClicked="#showOrHidePlaylist" size="30" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="155.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontAwesomeIconView>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" top="5.0" />
+               </padding>
+            </AnchorPane>
+            <AnchorPane fx:id="playlistPane" layoutX="593.0" layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="154.0" style="-fx-background-color: #2c2c33;" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="548.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+                     <children>
+                        <AnchorPane layoutY="331.0" minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <ImageView fx:id="repeatIcon" accessibleText="shuffleNode" fitHeight="25.0" fitWidth="25.0" layoutX="14.0" layoutY="334.0" onMouseClicked="#loopSelector" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="14.0">
+                           <image>
+                              <Image url="@../icons/icons8_No_Repeat_64px.png" />
+                           </image>
+                        </ImageView>
+                  <ImageView fx:id="shuffeIcon" accessibleText="shuffleNode" fitHeight="25.0" fitWidth="25.0" layoutX="106.0" layoutY="334.0" onMouseClicked="#shuffelSelector" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="14.0">
+                     <image>
+                        <Image url="@../icons/icons8_Shuffle_64px.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlist :" AnchorPane.leftAnchor="14.0" />
+                  <ListView fx:id="mediaListView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                  <Separator halignment="LEFT" layoutX="-3.0" onMouseDragged="#changePlaylistWidth" orientation="VERTICAL" prefHeight="371.0" prefWidth="0.0" style="-fx-border-color: #202020; -fx-border-width: 0.01; -fx-min-width: 0.01; -fx-background-color: #202020;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <cursor>
+                        <Cursor fx:constant="H_RESIZE" />
+                     </cursor>
+                  </Separator>
+                     </children>
+                  </AnchorPane>
+            
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

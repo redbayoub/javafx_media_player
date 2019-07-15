@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE preferences SYSTEM "http://java.sun.com/dtd/preferences.dtd">
+<preferences EXTERNAL_XML_VERSION="1.0">
+  <root type="user">
+    <map/>
+    <node name="javafx">
+      <map/>
+      <node name="scene">
+        <map/>
+        <node name="media">
+          <map>
+            <entry key="always_on_top" value="true"/>
+            <entry key="icon_on_system_tray" value="false"/>
+            <entry key="repeat_state" value="Loop_All"/>
+            <entry key="shuffle_on" value="ON"/>
+            <entry key="volume_level" value="1.0"/>
+          </map>
+        </node>
+      </node>
+    </node>
+  </root>
+</preferences>
