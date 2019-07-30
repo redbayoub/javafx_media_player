@@ -7,7 +7,7 @@ A JavaFX app that alow users to play audin/vedio files
 
 ## Supported Formats
 all formats that are suporeted by official media library in java
-see (https://docs.oracle.com/javafx/2/api/javafx/scene/media/package-summary.html#SupportedMediaTypes)
+see https://docs.oracle.com/javafx/2/api/javafx/scene/media/package-summary.html#SupportedMediaTypes
 
 - Audio : mp3 , wav , aif
 - Viedo : mp4 , flv
